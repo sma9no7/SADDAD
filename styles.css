@@ -1,0 +1,269 @@
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+    padding: 20px;
+  }
+  
+  /* Container */
+  .container {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  /* Heading & General */
+  h1 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  p {
+    margin-bottom: 20px;
+    color: #555;
+  }
+  
+  /* Loading Screen */
+  .loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  .hidden {
+    display: none !important;
+  }
+  .loading-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .circle {
+    width: 12px;
+    height: 12px;
+    background: #017DFB;
+    border-radius: 50%;
+    margin: 5px;
+    animation: bounce 1s infinite alternate;
+  }
+  .circle--2 {
+    animation-delay: 0.2s;
+  }
+  .circle--3 {
+    animation-delay: 0.4s;
+  }
+  @keyframes bounce {
+    to {
+      transform: translateY(-10px);
+    }
+  }
+  .loading-content p {
+    margin-top: 15px;
+    font-size: 1.1rem;
+    color: #333;
+  }
+  
+  /* Card Preview Container */
+  .card-preview {
+    width: 300px;
+    height: 180px;
+    margin: 0 auto 20px;
+    perspective: 1000px; /* for 3D flip */
+  }
+  
+  .card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease-in-out;
+  }
+  
+  /* Card Faces */
+  .card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    color: #fff;
+    font-weight: 500;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .card-face-front {
+    background: linear-gradient(120deg, #007bff, #004085);
+  }
+  .card-face-back {
+    background: #222;
+    transform: rotateY(180deg);
+  }
+  
+  /* Front Card Details */
+  .chip {
+    width: 50px;
+    height: 35px;
+    background: #cfcfcf;
+    border-radius: 6px;
+    margin-bottom: 10px;
+  }
+  .brand-logo {
+    width: 60px;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  .card-number {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+  }
+  .card-holder {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+  .card-expiry {
+    font-size: 0.9rem;
+  }
+  
+  /* Back Card Details */
+  .magstripe {
+    width: 100%;
+    height: 30px;
+    background: #333;
+    margin-bottom: 10px;
+  }
+  .signature-field {
+    width: 80%;
+    height: 30px;
+    background: #fff;
+    margin-bottom: 10px;
+    border-radius: 4px;
+  }
+  .cvv-field {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .cvv-field label {
+    font-size: 0.8rem;
+  }
+  .cvv-field span {
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
+  
+  /* Flip card class (applied via JS) */
+  .flip-card {
+    transform: rotateY(180deg);
+  }
+  
+  /* Form Styles */
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  .form-group {
+    margin-bottom: 15px;
+  }
+  .form-row {
+    display: flex;
+    gap: 10px;
+  }
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+  }
+  input[type="text"],
+  input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  button {
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background: #017DFB;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  button:hover {
+    background: #005bb5;
+  }
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background: #f8f8f8;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .container {
+    text-align: center;
+    background: #fff;
+    padding: 40px 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+  }
+  
+  .status-box h1 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .status-box p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  
+  /* Simple Spinner */
+  .spinner {
+    width: 30px;
+    height: 30px;
+    border: 4px solid #ddd;
+    border-top: 4px solid #017DFB;
+    border-radius: 50%;
+    margin: 0 auto;
+    animation: spin 1s linear infinite;
+  }
+  
+  /* Animation keyframe */
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+    

